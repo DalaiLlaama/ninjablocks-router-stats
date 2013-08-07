@@ -1,0 +1,11 @@
+{
+  "name": "router-stats",
+  "version": "0.0.1",
+  "description": "Router interface stats ninja block driver",
+  "main": "index.js",
+  "scripts": {
+    "test": "testme"
+  },
+  "author": "Geoff Lamperd",
+  "license": "BSD"
+}
