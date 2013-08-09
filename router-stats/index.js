@@ -1,4 +1,4 @@
-var Device = require('./lib/device')
+var InDevice = require('./lib/device')
   , util = require('util')
   , stream = require('stream');
 
@@ -35,7 +35,7 @@ function myModule(opts,app) {
     self.save();
 
     // Register a device
-    self.emit('register', new Device());
+    self.emit('register', new InDevice());
   });
 };
 
