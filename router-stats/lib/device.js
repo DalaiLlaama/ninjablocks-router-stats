@@ -5,10 +5,10 @@ var stream = require('stream')
     child;
 
 // Give our module a stream interface
-util.inherits(Device,stream);
+util.inherits(InDevice,stream);
 
 // Export it
-module.exports=Device;
+module.exports=InDevice;
 
 /**
  * Creates a new Device Object
@@ -26,7 +26,7 @@ module.exports=Device;
  */
 
 
-function Device() {
+function InDevice() {
 
   var self = this, 
 	lastInOctets = -1,
@@ -84,6 +84,7 @@ function Device() {
       }, interval);
   });
 };
+//util.inherits(InDevice, Device);
 
 /**
  * Called whenever there is data from the cloud
@@ -91,7 +92,7 @@ function Device() {
  *
  * @param  {String} data The data received
  */
-Device.prototype.write = function(data) {
+InDevice.prototype.write = function(data) {
 
   // I'm being actuated with data!
   console.log(data);
