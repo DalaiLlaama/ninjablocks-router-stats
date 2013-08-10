@@ -26,7 +26,7 @@ module.exports=InDevice;
  */
 
 
-function InDevice(oid, channel) {
+function InDevice() {
 
   var self = this, 
 	lastInOctets = -1,
@@ -41,14 +41,14 @@ function InDevice(oid, channel) {
   // This device can be actuated
   this.writeable = false;
 
-  this.G = channel; // G is a string a represents the channel
+  this.G = "1"; // G is a string a represents the channel
   this.V = 0; // 0 is Ninja Blocks' device list
   this.D = 2000; // 2000 is a generic Ninja Blocks sandbox device
 
   process.nextTick(function() {
     setInterval(function() {
 
-      child = exec('snmpget -v1 -c public 192.168.1.1 ' + oid + ' | cut -d : -f 2',
+      child = exec('snmpget -v1 -c public 192.168.1.1 iso.3.6.1.2.1.2.2.1.10.1 | cut -d : -f 2',
       function (error, stdout, stderr) {
         stdout.replace(/(\n|\r|\r\n)$/, '');
 	var now = new Date();

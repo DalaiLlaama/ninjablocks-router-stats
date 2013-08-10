@@ -35,7 +35,7 @@ function myModule(opts,app) {
     self.save();
 
     // Register a device
-    self.emit('register', new InDevice());
+    self.emit('register', new InDevice('iso.3.6.1.2.1.2.2.1.10.1', '1'));
   });
 };
 
@@ -44,7 +44,7 @@ function myModule(opts,app) {
  * @param  {Object} config Configuration data
  */
 myModule.prototype.config = function(config) {
-
+   console.log('Config data:' + config);
 };
 
 // Export it
