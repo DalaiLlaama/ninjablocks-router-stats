@@ -36,6 +36,7 @@ function myModule(opts,app) {
 
     // Register a device
     self.emit('register', new InDevice('iso.3.6.1.2.1.2.2.1.10.1', '1'));
+    self.emit('register', new InDevice('iso.3.6.1.2.1.2.2.1.16.1', '2'));
   });
 };
 
