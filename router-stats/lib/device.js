@@ -33,7 +33,8 @@ function InDevice(oid, channel) {
 	deltabps = 0,
 	interval = 30000,
 	lastHour = 0,
-	startOfHourReading = 0;
+	startOfHourReading = 0,
+	hourlyStats = new Array();
   const max = 4294967296;
 
   // This device will emit data
@@ -60,6 +61,13 @@ function InDevice(oid, channel) {
 	{
 	   if (curr_hour != lastHour) 
 	   {
+	     // Start a new bar
+		 if (hourlyStats.length > 23)
+		 {
+		   hourlyStats.shift();
+		   hourlyStats.push(0);
+		 }
+		 // Set the base point
 	     startOfHourReading = lastInOctets;
 	   }
 	   var delta = 0;
@@ -71,7 +79,8 @@ function InDevice(oid, channel) {
 	      delta = inOctets - startOfHourReading;
 	   }
 	   deltabps = delta / 1024 / 1024;
-	   self.emit('data',deltabps);
+	   hourlyStats[hourlyStats.length - 1] = deltabps;
+	   self.emit('data',hourlyStats);
 	} else
 	{
 	   startOfHourReading = inOctets;
