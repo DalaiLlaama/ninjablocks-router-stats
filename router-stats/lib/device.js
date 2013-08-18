@@ -45,6 +45,8 @@ function InDevice(oid, channel) {
   this.G = channel; // G is a string a represents the channel
   this.V = 0; // 0 is Ninja Blocks' device list
   this.D = 2000; // 2000 is a generic Ninja Blocks sandbox device
+  
+  hourlyStats.push(0);
 
   process.nextTick(function() {
     setInterval(function() {
@@ -57,7 +59,7 @@ function InDevice(oid, channel) {
 
 	deltabps = 0;
 	var inOctets = parseInt(stdout);
-        if (lastInOctets > 0)
+    if (lastInOctets > 0)
 	{
 	   if (curr_hour != lastHour) 
 	   {
@@ -65,8 +67,8 @@ function InDevice(oid, channel) {
 		 if (hourlyStats.length > 23)
 		 {
 		   hourlyStats.shift();
-		   hourlyStats.push(0);
 		 }
+	     hourlyStats.push(0);
 		 // Set the base point
 	     startOfHourReading = lastInOctets;
 	   }
@@ -79,13 +81,13 @@ function InDevice(oid, channel) {
 	      delta = inOctets - startOfHourReading;
 	   }
 	   deltabps = delta / 1024 / 1024;
-	   hourlyStats[hourlyStats.length - 1] = deltabps;
+	   hourlyStats[hourlyStats.length - 1] = deltabps.toFixed(1);
 	   self.emit('data',hourlyStats);
 	} else
 	{
 	   startOfHourReading = inOctets;
 	}
-        console.log("In Mb " + deltabps);
+    console.log("In Mb " + deltabps);
 	lastInOctets = inOctets;
 	lastHour = curr_hour;
       });
